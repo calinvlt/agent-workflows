@@ -1,6 +1,6 @@
 openai
 openai-agents  # Provides tools for building and running OpenAI-based agents
-# pydantic  # Data validation and settings management using Python type annotations
+pydantic  # Data validation and settings management using Python type annotations
 python-dotenv  # Loads environment variables from a .env file
 asyncio
 # autopep8  # Automatically formats Python code to conform to PEP 8
@@ -8,7 +8,8 @@ asyncio
 # flake8  # Combines linting tools for style guide enforcement
 # isort  # Automatically sorts Python imports
 # mypy  # Static type checker for Python
-# mcp[cli]
+fastmcp
+mcp[cli]
 # uv # for project management and running application servers for Claude etc.
 # openai-agents[viz]  # Visualization tools for OpenAI agents
 
@@ -29,5 +30,5 @@ asyncio
 # openinference-instrumentation-openai
 
 # # For web applications and APIs
-# fastapi 
-# uvicorn[standard]
+fastapi 
+uvicorn[standard]

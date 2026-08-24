@@ -6,7 +6,12 @@
 	"image": "mcr.microsoft.com/devcontainers/python:3-3.14-trixie",
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
+	"features": {
+    	"ghcr.io/postfinance/devcontainer-features/node:1.0.0": {
+        "version": "lts",
+        "npmVersion": "included"
+    	}
+	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
@@ -20,6 +25,13 @@
 		"AZURE_OPENAI_ENDPOINT": "${localEnv:AZURE_OPENAI_ENDPOINT}",
 		"AZURE_OPENAI_DEPLOYMENT": "${localEnv:AZURE_OPENAI_DEPLOYMENT}",
 		"OPENAI_AGENTS_DISABLE_TRACING": "true"
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"yzhang.markdown-all-in-one"
+			]
+		}
 	}
 
 	// Configure tool-specific properties.
