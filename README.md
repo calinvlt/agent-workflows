@@ -21,3 +21,7 @@ This is about moving the tools into a MCP server.
 - `06_time_travel_agent_mcp_stdio.py` hosts the MCP server in process using `stdio` to communicate.
 - `06_time_travel_agent_mcp_sse.py` hosts the MCP server in a separate process started with `mcp run -t sse 06_mcp_time_travel_tracker.py` and it's using `sse` or Server-Side-Events to communicate.
 
+## Multi agents flow
+- `07_single_agent_multiple_mcp.py` single agent with multiple tools (MCP servers)
+- `07_agent_to_agent_flow.py` multiple agents each having a role and handling a tool
+- `08_agent_to_agent_decisions.py` multiple agents but a decision is made in the code
