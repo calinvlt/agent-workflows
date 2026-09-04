@@ -11,7 +11,7 @@ asyncio
 fastmcp
 mcp[cli]
 # uv # for project management and running application servers for Claude etc.
-# openai-agents[viz]  # Visualization tools for OpenAI agents
+openai-agents[viz]  # Visualization tools for OpenAI agents
 
 # plotly  # For creating interactive visualizations
 # numpy  # Fundamental package for scientific computing with Python

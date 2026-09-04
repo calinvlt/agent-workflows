@@ -15,8 +15,17 @@ def init_client():
     set_default_openai_client(client)
 
 
-def run_agent(agent: Agent, input: str):    
+def run_agent(agent: Agent, input: str, context=None):    
     result = Runner.run_sync(
+        agent,
+        input=input,
+        context=context
+    )
+    print(result.final_output)
+    return result.final_output
+
+async def run_agent_async(agent: Agent, input: str):
+    result = await Runner.run(
         agent,
         input=input,
     )
