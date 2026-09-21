@@ -26,8 +26,12 @@ _benchmarks = [
 ]
 
 @function_tool
-def search_knowledge(query: str) -> dict:
-    """Search the KB DB for relevant facts."""
+def search_knowledge_by_keyword(query: str) -> dict:
+    """
+    Search the knowledge database for relevant facts.
+    param query: The single keyword query string to search for.
+    """
+    print(f"Query={query}")
     matches = [doc for doc in _special_knowledge_db if query.lower() in doc.lower()]
     print(f"Found {len(matches)} matches for query '{query}'")
     return { "status": "ok", "context": "\n".join(matches)}
@@ -35,9 +39,13 @@ def search_knowledge(query: str) -> dict:
 agent = Agent(
     name="RAG Agent",
     instructions="""
-You are a retrieval augumented knowledge agent.
+You are a retrieval-augumented knowledge agent.
+
+INSTRUCTIONS:
+- Split user query into words to fetch the relevant context for the user's query.
+- Always answer with a single word.
 """,
-    tools=[search_knowledge]
+    tools=[search_knowledge_by_keyword]
 )
 
 for benchmark in _benchmarks:
@@ -47,6 +55,7 @@ for benchmark in _benchmarks:
 
     result = asyncio.run(Runner.run(agent, input=question)).final_output.strip()
 
+    print(""+"="*40)
     print(f"Question: {question}")
     print(f"Answer: {result}")
 
