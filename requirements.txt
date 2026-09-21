@@ -15,8 +15,8 @@ openai-agents[viz]  # Visualization tools for OpenAI agents
 
 # plotly  # For creating interactive visualizations
 # numpy  # Fundamental package for scientific computing with Python
-# chromadb  # Vector database for storing and querying embeddings
-# tiktoken
+chromadb  # Vector database for storing and querying embeddings
+tiktoken
 
 # # A2A
 # # google-adk[a2a]
