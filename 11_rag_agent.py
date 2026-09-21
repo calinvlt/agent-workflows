@@ -1,6 +1,7 @@
 import asyncio
 
 from agents import Agent, Runner, function_tool
+from pydantic import BaseModel
 
 from openai_client import init_client
 init_client()
@@ -31,7 +32,6 @@ def search_knowledge_by_keyword(query: str) -> dict:
     Search the knowledge database for relevant facts.
     param query: The single keyword query string to search for.
     """
-    print(f"Query={query}")
     matches = [doc for doc in _special_knowledge_db if query.lower() in doc.lower()]
     print(f"Found {len(matches)} matches for query '{query}'")
     return { "status": "ok", "context": "\n".join(matches)}
@@ -48,6 +48,20 @@ INSTRUCTIONS:
     tools=[search_knowledge_by_keyword]
 )
 
+class EvaluationOutput(BaseModel):
+    is_correct: bool
+    feedback: str
+
+eval_agent = Agent(
+    name="Eval Agent",
+    instructions="""
+You are an evaluation agent.
+Your task is to evaluate the answers provided by the RAG Agent.
+You will compare the answer against the expected answers key term to validate correctness.
+""",
+    output_type=EvaluationOutput
+)
+
 for benchmark in _benchmarks:
     question = benchmark["q"]
     answer = benchmark["a"]
@@ -55,7 +69,18 @@ for benchmark in _benchmarks:
 
     result = asyncio.run(Runner.run(agent, input=question)).final_output.strip()
 
+    eval_input = dict(
+        question=question,
+        answer=result,
+        extected_key_term=answer,
+        wrong_answer=wrong_answer
+    )
+
     print(""+"="*40)
+    eval = asyncio.run(Runner.run(eval_agent, input=str(eval_input))).final_output
+
+    print(f"Evaluation: {eval.is_correct}")
+    print(f"Feedback: {eval.feedback}")
     print(f"Question: {question}")
     print(f"Answer: {result}")
 
